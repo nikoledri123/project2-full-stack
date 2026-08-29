@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <title>Full Stack App</title>
+</head>
+<body>
+
+```
+<h1>Full Stack App</h1>
+
+<h2>פריטים</h2>
+
+<button onclick="loadItems()">טען פריטים</button>
+
+<ul id="items"></ul>
+
+<h2>הוסף פריט</h2>
+
+<input type="text" id="itemName" placeholder="שם הפריט">
+<button onclick="addItem()">הוסף</button>
+
+<script>
+    async function loadItems() {
+        const response = await fetch('/api/items');
+        const items = await response.json();
+
+        const list = document.getElementById('items');
+        list.innerHTML = '';
+
+        items.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            list.appendChild(li);
+        });
+    }
+
+    async function addItem() {
+        const name = document.getElementById('itemName').value;
+
+        if (!name) {
+            alert('הכנס שם פריט');
+            return;
+        }
+
+        await fetch('/api/items/' + encodeURIComponent(name), {
+            method: 'POST'
+        });
+
+        document.getElementById('itemName').value = '';
+
+        loadItems();
+    }
+</script>
+```
+
+</body>
+</html>

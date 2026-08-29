@@ -1,0 +1,12 @@
+**pycache**/
+*.pyc
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+.git/
+.vscode/
+*.log
+.DS_Store
